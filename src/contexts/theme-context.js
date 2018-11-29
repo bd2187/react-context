@@ -7,8 +7,11 @@ export const themes = {
     },
     dark: {
         foreground: "#ffffff",
-        background: "#222222"
+        background: "#000"
     }
 };
 
-export const ThemeContext = React.createContext(themes.dark);
+export const ThemeContext = React.createContext({
+    theme: themes.dark,
+    toggleTheme: () => {}
+});
