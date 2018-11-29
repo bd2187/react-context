@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { ThemeContext, themes } from "../contexts/theme-context";
 import ThemedButton from "./Themed-button";
+import ThemeTogglerButton from "./Theme-toggler-button";
 
 // An intermediate component that uses the ThemedButton
 function Toolbar(props) {
@@ -12,32 +13,36 @@ function Toolbar(props) {
 class App extends Component {
     constructor(props) {
         super(props);
-        this.state = {
-            theme: themes.light
-        };
 
         this.toggleTheme = () => {
             this.setState(state => ({
                 theme: state.theme === themes.dark ? themes.light : themes.dark
             }));
         };
+
+        this.state = {
+            theme: themes.dark,
+            toggleTheme: this.toggleTheme
+        };
     }
 
     render() {
-        // The ThemedButton button inside the ThemeProvider
-        // uses the theme from state while the one outside uses
-        // the default dark theme
         return (
             <div>
-                <ThemeContext.Provider value={this.state.theme}>
-                    <Toolbar changeTheme={this.toggleTheme} />
+                <ThemeContext.Provider value={this.state}>
+                    <Content />
                 </ThemeContext.Provider>
-                <br />
-                <br />
-                <ThemedButton />
             </div>
         );
     }
+}
+
+function Content() {
+    return (
+        <div>
+            <ThemeTogglerButton />
+        </div>
+    );
 }
 
 export default App;
